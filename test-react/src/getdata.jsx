@@ -69,11 +69,39 @@ function GetUser(){
             <p>{person[2]}</p>
             <p>{person[3]}</p>
             </>}
-            <p>Count : {count}</p>
+            {!!count && <p>Count : {count}</p>}
             <button onClick={updateCount}>add count</button>
             <button onClick={(e)=>{setCount(0)}}>reset</button>
+            <DrinkList/>
+            {person && <>
+                {person.map((person, index) => (
+                    <p key={index}>{person}</p>
+                ))}
+            </>}
+            <WelcomeMessage/>
         </>
     )
 };
+
+
+function DrinkList() {
+    const drinks = ['Latte', 'Mocha', 'Cappuccino'];
+
+    return (
+        <ul>
+            {drinks.map((drink, index) => (
+                <li key={index}>{drink}</li>
+            ))}
+        </ul>
+    );
+}
+
+
+function WelcomeMessage({ name, defaultName }) {
+    name = "michael"
+    defaultName = "visitor"
+    const displayName = name || defaultName || "Guest";
+    return <h1>Welcome, {displayName}!</h1>;
+}
 
 export default GetUser
