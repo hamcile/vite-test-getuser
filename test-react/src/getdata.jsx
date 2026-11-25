@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 class User{
     constructor(fname, lname, age, country){
@@ -42,6 +42,25 @@ function GetUser(){
         setCount(next => next + 1) 
     }
 
+    const score = useRef(6)
+    const [aScore, setAScore] = useState(false)
+
+    const reduceSCore = ()=>{
+        score.current = score.current - 4;
+        return <p>the current score is {score.current}</p>
+    }
+
+    const newScore = ()=>{
+        score.current = score.current + 11
+        console.log(score.current)
+        setAScore(score.current)
+    }
+
+    const resetButton = ()=> {
+        score.current = 0
+        setAScore(false)
+    }
+
     return(
         <>
             <div>
@@ -79,6 +98,10 @@ function GetUser(){
                 ))}
             </>}
             <WelcomeMessage/>
+            <button onClick={reduceSCore}>reduce score{reduceSCore}</button>
+            <button onClick={newScore}>add score by 11</button>
+            {aScore && <p>{aScore}</p>}
+            <button onClick={resetButton}> reset </button>
         </>
     )
 };
